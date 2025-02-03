@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @State private var fullName: String = ""
     @State private var email: String = ""
     @State private var password: String = ""
     @State private var isPasswordVisible: Bool = false
+    @EnvironmentObject var profileData: ProfileData
 
     var body: some View {
         VStack {
@@ -21,8 +21,8 @@ struct SignUpView: View {
                 
                 Spacer()
                 
-                Button(action: {
-                    // Действие закрытия экрана
+                Button(action:  {
+                    UIApplication.shared.windows.first?.rootViewController = UIHostingController(rootView: OnboardingView())
                 }) {
                     Image(systemName: "xmark")
                         .foregroundColor(.black)
@@ -49,7 +49,7 @@ struct SignUpView: View {
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(.black)
 
-                TextField("Enter full name", text: $fullName)
+                TextField("Enter full name", text: $profileData.profileName)
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 12).stroke(Color.gray.opacity(0.3), lineWidth: 1))
             }
@@ -105,7 +105,7 @@ struct SignUpView: View {
 
             // Кнопка "Sign Up"
             Button(action: {
-                // Действие при нажатии
+                UIApplication.shared.windows.first?.rootViewController = UIHostingController(rootView: HomeView())
             }) {
                 Text("Sign Up")
                     .font(.system(size: 16, weight: .bold))
@@ -125,6 +125,6 @@ struct SignUpView: View {
 
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView()
+        SignUpView().environmentObject(ProfileData())
     }
 }

@@ -1,16 +1,15 @@
 import SwiftUI
 
 struct ProfileEditView: View {
-    @State private var firstName: String = ""
-    @State private var lastName: String = ""
     @State private var email: String = ""
     @State private var phoneNumber: String = ""
+    @EnvironmentObject var profileData: ProfileData
     
     var body: some View {
         VStack {
             HStack {
                 Button(action: {
-                    // Действие для возврата назад
+                    UIApplication.shared.windows.first?.rootViewController = UIHostingController(rootView: ProfileView().environmentObject(ProfileData()))
                 }) {
                     Image(systemName: "chevron.left")
                         .foregroundColor(.black)
@@ -35,8 +34,8 @@ struct ProfileEditView: View {
                 .padding(.bottom, 20)
             
             // Поля ввода
-            InputField(title: "First Name", text: $firstName)
-            InputField(title: "Last Name", text: $lastName)
+            InputField(title: "First Name", text: $profileData.profileName)
+            InputField(title: "Last Name", text: $profileData.profileLastName)
             InputField(title: "Email", text: $email)
             InputField(title: "Phone Number", text: $phoneNumber)
             
@@ -83,6 +82,6 @@ struct InputField: View {
 
 struct ProfileEditView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileEditView()
+        ProfileEditView().environmentObject(ProfileData())
     }
 }

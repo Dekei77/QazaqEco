@@ -21,7 +21,7 @@ struct SignInView: View {
                 Spacer()
                 
                 Button(action: {
-                    // Действие закрытия экрана
+                    UIApplication.shared.windows.first?.rootViewController = UIHostingController(rootView: OnboardingView())
                 }) {
                     Image(systemName: "xmark")
                         .foregroundColor(.black)
@@ -99,9 +99,9 @@ struct SignInView: View {
 
             // Кнопка "Sign In"
             Button(action: {
-                // Действие входа в систему
+                UIApplication.shared.windows.first?.rootViewController = UIHostingController(rootView: HomeView())
             }) {
-                Text("Sign Up")
+                Text("Sign In")
                     .font(.system(size: 16, weight: .bold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)

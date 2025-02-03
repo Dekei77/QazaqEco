@@ -37,7 +37,7 @@ struct OnboardingView: View {
                 // Buttons
                 HStack {
                     Button(action: {
-                        // Handle Join Us action
+                        UIApplication.shared.windows.first?.rootViewController = UIHostingController(rootView: SignUpView().environmentObject(ProfileData()))
                     }) {
                         Text("Join Us")
                             .font(.headline)
@@ -48,7 +48,7 @@ struct OnboardingView: View {
                     }
                     
                     Button(action: {
-                        // Handle Sign In action
+                        UIApplication.shared.windows.first?.rootViewController = UIHostingController(rootView: SignInView().environmentObject(ProfileData()))
                     }) {
                         Text("Sign In")
                             .font(.headline)
